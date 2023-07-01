@@ -1,10 +1,38 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import Header from '@/components/Header'
 import Lottie from "lottie-react";
 import med from '../lotties/med.json'
 import Button from '@/components/atoms/Button';
 import Link from 'next/link';
+import app from '../components/firebase'
+import { useRouter } from 'next/navigation'
+import { getAuth,createUserWithEmailAndPassword,onAuthStateChanged  } from "firebase/auth";
+
 const signup = () => {
+  const auth = getAuth(app);
+  const router = useRouter()
+  const [name,setName]=useState("")
+  const [email,setEmail]=useState("")
+  const [password,setPassword]=useState("");
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        router.push('/')
+      }});
+  },[])
+
+  const createuser=async()=>{
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+  }
   return (
     <div className='bg-[#f8f8f8] min-h-screen max-h-screen'>
       <Header />
@@ -23,24 +51,24 @@ const signup = () => {
 
             <div>
               <label htmlFor="name" className='text-[#383838]'>Full Name</label>
-              <input type="text" placeholder='Deep Vick'
+              <input onChange={(e)=>{setName(e.target.value)}} type="text" placeholder='Deep Vick'
                 className='py-3 shadow-md rounded-md px-2 w-[350px]  block my-2 mb-4 border-[#c7c5c5] outline-none border-[1px]' />
             </div>
 
             <div>
               <label htmlFor="email" className='text-[#383838]'>Email</label>
-              <input type="text" placeholder='example.com'
+              <input onChange={(e)=>{setEmail(e.target.value)}} type="text" placeholder='example.com'
                 className='py-3 shadow-md rounded-md px-2 w-[350px]  block my-2 mb-4 border-[#c7c5c5] outline-none border-[1px]' />
             </div>
 
             <div>
               <label htmlFor="password" className='text-[#383838]'>Password</label>
-              <input type="password" placeholder='password'
+              <input onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder='password'
                 className='py-3 shadow-md rounded-md px-2 w-[350px]  block my-2 mb-4 border-[#c7c5c5] outline-none border-[1px]' />
             </div>
 
-            <div>
-             <Button  className="" text={"Sign Up"} />
+            <div onClick={createuser}>
+             <Button   className="" text={"Sign Up"} />
             </div>
 
           </div>
