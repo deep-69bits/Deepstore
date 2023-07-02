@@ -6,7 +6,7 @@ import { Pagination, Autoplay, Parallax } from "swiper";
 import PortableText from "react-portable-text"
 
 const Reviwes = ({ data }) => {
-    console.log(data);
+    
     return (
         <div className='px-10 py-10 m-auto lg:w-4/6 w-full'>
 
