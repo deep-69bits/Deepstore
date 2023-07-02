@@ -8,6 +8,7 @@ import app from '../components/firebase'
 import { useRouter } from 'next/navigation'
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from "firebase/auth";
+import Layout from '@/components/Layout';
 
 const login = () => {
 
@@ -67,17 +68,17 @@ const login = () => {
       });
   }
   return (
-    <div className='bg-[#f8f8f8] min-h-screen max-h-screen'>
-      <Header />
+    <Layout>
+   
 
-      <div className='py-40'>
+      <div className='py-10'>
 
-        <div className='bg-white w-[50%] shadow-md h-fit flex flex-col-3 justify-between pt-10 px-10 m-auto '>
+        <div className='bg-white w-full lg:w-[50%] shadow-2xl  h-fit flex flex-col-3 justify-between pt-10 px-10 m-auto '>
           <h1 className='text-2xl '>
             Sign In to DRUGWISE
           </h1>
         </div>
-        <div className='bg-white w-[50%] shadow-md h-fit flex flex-col-3 justify-between pt-5  pb-10 px-10 m-auto '>
+        <div className='bg-white w-full lg:w-[50%] shadow-2xl  h-fit lg:flex flex-col-3 justify-between pt-5  pb-10 px-10 m-auto '>
 
 
           <div className='my-10'>
@@ -87,22 +88,22 @@ const login = () => {
             <div>
               <label htmlFor="email" className='text-[#383838]'>Email</label>
               <input onChange={(e) => { setEmail(e.target.value) }} type="text" placeholder='example.com'
-                className='py-3 shadow-md rounded-md px-2 w-[350px]  block my-2 mb-4 border-[#c7c5c5] outline-none border-[1px]' />
+                className='py-3 shadow-md rounded-md px-2 lg:w-[350px] w-full  block my-2 mb-4 border-[#c7c5c5] outline-none border-[1px]' />
             </div>
 
             <div>
               <label htmlFor="password" className='text-[#383838]'>Password</label>
               <input onChange={(e) => { setPassword(e.target.value) }} type="password" placeholder='password'
-                className='py-3 shadow-md rounded-md px-2 w-[350px]  block my-2 mb-4 border-[#c7c5c5] outline-none border-[1px]' />
+                className='py-3 shadow-md rounded-md px-2 lg:w-[350px] w-full  block my-2 mb-4 border-[#c7c5c5] outline-none border-[1px]' />
             </div>
 
             <div onClick={signinuser}>
-              <Button className="" text={"Sign In"} />
+              <Button className="w-full text-center" text={"Sign In"} />
             </div>
 
           </div>
 
-          <div className='py-10'>
+          <div className='py-10 hidden lg:block'>
             <div className='border-[#c7c5c5] w-[0.1px] border-[1px] h-28'></div>
             <h6 className='text-[#c7c5c5] font-bold -translate-x-2'>or</h6>
             <div className='border-[#c7c5c5] w-[0.1px] border-[1px] h-28'></div>
@@ -140,7 +141,7 @@ const login = () => {
 
         </div>
 
-        <div className='bg-[#f8f8f8] w-[50%] shadow-md h-fit flex flex-col-3 justify-between py-10 px-10 m-auto '>
+        <div className='bg-[#f8f8f8] w-full lg:w-[50%] shadow-md h-fit flex flex-col-3 justify-between py-10 px-10 m-auto '>
           Don't have an Account??
           <Link href={'/signup'}>
             <Button className={""} text="Sign Up" />
@@ -150,7 +151,7 @@ const login = () => {
 
       </div>
 
-    </div>
+    </Layout>
   )
 }
 
