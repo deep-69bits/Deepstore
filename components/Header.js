@@ -100,6 +100,23 @@ const Header = () => {
          <li className='hover:text-[#3fb5eb] py-2 cursor-pointer'>Medicine</li>
          <li className='hover:text-[#3fb5eb] py-2 cursor-pointer'>Health Care</li>
          <li className='hover:text-[#3fb5eb] py-2 cursor-pointer'>Health Blogs</li>
+         {
+          signedin ?
+            <div>
+              <div onClick={signoutme} >
+                <Button className="mx-3 block w-[80%] my-3" text={"Logout"} />
+              </div>
+            </div>
+            :
+            <div>
+              <Link href={'/login'}>
+                <Button className="mx-3 block w-[80%] my-3" text={"LogIn"} />
+              </Link>
+              <Link href={'/signup'}>
+                <Button className="mx-3 block w-[80%] my-3" text={"SignUp"} />
+              </Link>
+            </div>
+        }
          </ul>
         </div>:<div></div>
 
