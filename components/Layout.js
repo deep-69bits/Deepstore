@@ -6,7 +6,7 @@ const Layout = ({children}) => {
   return (
     <div>
     <Seo/>
-    <div className='min-h-screen flex flex-col justify-between'>
+    <div className='min-h-screen bg-white flex flex-col justify-between'>
     <Header/>
     {children}
     <Footer/>

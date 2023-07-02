@@ -1,15 +1,26 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Carousel from 'react-grid-carousel'
 import Layout from '@/components/Layout'
+import { createClient } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
+import Reviwes from '@/components/Reviwes';
+import Link from 'next/link';
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
+export default function Home({categories,customer_reviwes}) {
+  
+  const client = createClient({
+    projectId: "a253bg6b",
+    dataset: "production",
+    useCdn: false,
+  });
+  const builder = imageUrlBuilder(client);
+  function urlFor(source) {
+    return builder.image(source);
+  }
   return (
     <main>
       <Layout>
-      <div className='m-auto w-4/6'>
+      <div className='m-auto lg:w-4/6 w-full py-10'>
         <Carousel   cols={1} autoplay={3000} rows={1} gap={10} loop>
           <Carousel.Item>
             <img  className='w-full h-[300px]' src="./ads/ad1.png" />
@@ -22,7 +33,44 @@ export default function Home() {
           </Carousel.Item>
         </Carousel>
       </div>
+
+       <Reviwes data={customer_reviwes}/>
+      
+        <div className='m-auto w-full lg:w-4/6 py-10 grid grid-flow-row grid-cols-1 lg:grid-cols-3 md:grid-cols-2 px-5 gap-x-4 gap-y-4'>
+         {
+           categories.map((item,indes)=>{
+             return(
+              <Link href={'/category/'+item._id}>
+              <div className='flex px-4 py-2 rounded-xl hover:text-[#3fb5eb] hover:shadow-[#3fb5eb] shadow-lg border-[1px] border-black border-opacity-40 items-center cursor-pointer'>
+              <img className='h-20 w-20' src={urlFor(item.picture).url()} alt="" />
+              <h1 className='px-4 font-medium'>{item.name}</h1>
+              </div>
+              </Link>
+             )
+           })
+         }
+        </div>
+
+
       </Layout>
     </main>
   )
+}
+export async function getServerSideProps(context) {
+  const client = createClient({
+    projectId: "a253bg6b",
+    dataset: "production",
+    useCdn: false,
+  });
+  const query = `*[_type == "category"]`;
+  const query2 = `*[_type == "customer_reviwes"]`;
+  const categories = await client.fetch(query);
+  const customer_reviwes = await client.fetch(query2);
+  console.log(categories)
+  return {
+    props: {
+     categories,
+     customer_reviwes
+    },
+  };
 }
