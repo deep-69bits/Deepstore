@@ -1,5 +1,8 @@
 import React from 'react'
-import Carousel from 'react-grid-carousel'
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination, Autoplay, Parallax } from "swiper";
 import PortableText from "react-portable-text"
 
 const Reviwes = ({ data }) => {
@@ -8,39 +11,67 @@ const Reviwes = ({ data }) => {
         <div className='px-10 py-10 m-auto lg:w-4/6 w-full'>
 
             <div className='hidden lg:block'>
-                <Carousel cols={2} autoplay={3000} rows={1} gap={10} loop>
+                <Swiper
+                    slidesPerView={2}
+                    spaceBetween={30}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    loop={true}
+                    autoplay={{
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    }}
+                    navigation={true}
+                    parallax={true}
+                    modules={[Pagination, Autoplay, Parallax]}
+                >
                     {
                         data.map((item, index) => {
                             return (
-                                <Carousel.Item>
-                                    <div className='py-2 px-8 hover:scale-105 transition-all duration-500 cursor-pointer'>
+                                <SwiperSlide key={index}>
+                                    <div key={index} className='py-2 px-8 hover:scale-105 transition-all duration-500 cursor-pointer'>
                                         <h1 className='px-4 text-xl font-medium'>{item.customer_name}</h1>
                                         <h2 className='px-4 opacity-60 py-2'>{item.date}</h2>
                                         <p className='py-6 px-4 my-4 rounded-xl border-[#aaebff]  border-[1px] bg-[#f1faff]'>{item.review}</p>
                                     </div>
-                                </Carousel.Item>
+                                </SwiperSlide>
                             )
                         })
                     }
-                </Carousel>
+                </Swiper>
             </div>
 
             <div className='block lg:hidden'>
-                <Carousel cols={1} autoplay={3000} rows={1} gap={10} loop>
+                <Swiper
+                    slidesPerView={1}
+                    spaceBetween={30}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    loop={true}
+                    autoplay={{
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    }}
+                    navigation={true}
+                    parallax={true}
+                    modules={[Pagination, Autoplay, Parallax]}
+                >
                     {
                         data.map((item, index) => {
                             return (
-                                <Carousel.Item>
+                                <SwiperSlide key={index}>
                                     <div className='py-2 px-8 hover:scale-105 transition-all duration-500 cursor-pointer'>
                                         <h1 className='px-4 text-xl font-medium'>{item.customer_name}</h1>
                                         <h2 className='px-4 opacity-60 py-2'>{item.date}</h2>
                                         <p className='py-6 px-4 my-4 rounded-xl border-[#aaffd3]  border-[1px] bg-[#f1fff8]'>{item.review}</p>
                                     </div>
-                                </Carousel.Item>
+                                </SwiperSlide>
                             )
                         })
                     }
-                </Carousel>
+                </Swiper>
             </div>
 
         </div>

@@ -48,7 +48,7 @@ export async function getServerSideProps(context) {
        products,
       },
     };
-  }
+}
 
 export default categoryid
 
