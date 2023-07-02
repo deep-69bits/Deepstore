@@ -71,7 +71,7 @@ const Header = () => {
 
         <div>
           <Link href={'/'}>
-            <img className='h-16 w-16' src="./Logo.png" alt="logo" />
+            <img className='h-16 w-16' src="https://ik.imagekit.io/cmef8hxb6/Modern_Blue_Medicine_Center_Hospital_Logo-removebg-preview_Q9fZEGjK-.png?updatedAt=1688294045078" alt="logo" />
           </Link>
         </div>
 

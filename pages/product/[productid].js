@@ -5,6 +5,7 @@ import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import ReactStars from 'react-stars'
 import PortableText from "react-portable-text"
+import RelatedProducts from '@/components/RelatedProducts';
 
 const productid = ({ product }) => {
     const router = useRouter()
@@ -27,19 +28,22 @@ const productid = ({ product }) => {
                         if (item._id == productid) {
                             return (
                                 <div key={ind} className="py-10" >
-                                    <div className='flex gap-x-20'>
+                                    <div className='lg:flex block gap-x-20'>
                                         <div>
                                             <img className='w-80 ' src={urlFor(item.picture[0]).url()} alt="" />
                                         </div>
 
                                         <div>
                                             <h1 className='text-3xl'>{item.name}</h1>
-                                            <h2>{item.price}</h2>
-                                            <ReactStars
-                                                count={5}
-                                                value={item.rating}
-                                                size={24}
-                                                color2={'#ffd700'} />
+                                            <h2 className='my-2 font-light'>By {item.brand}</h2>
+                                            <span className='flex items-center '>
+                                            <ReactStars count={5} value={item.rating} size={24} color2={'#ffd700'} />
+                                            <span className='mx-3'>
+                                            {item.rating}+ rating
+                                            </span>
+                                            </span>
+                                            <h2 className='my-2 text-xl'>MRP &#8377;{item.price}</h2>
+                                            <h4 className='text-sm'>Inclusive of all taxes</h4>
                                         </div>
                                     </div>
 
@@ -61,12 +65,15 @@ const productid = ({ product }) => {
                                         {item.benefits}
                                         </h5>
                                     </div>
+                                    <hr className='my-3' />
+                                    <RelatedProducts data={product} category={item.cat._ref}/>
                                 </div>
                             )
                         }
                     })
                 }
-            </div>
+                </div>
+    
         </Layout>
     )
 }
