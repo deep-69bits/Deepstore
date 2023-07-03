@@ -24,6 +24,7 @@ const RelatedProducts = ({ data, category }) => {
         <div className='my-10'>
 
             <div className='hidden md:block lg:block'>
+            <h3 className='py-8 text-2xl font-medium'>Realted  Product</h3>
                 <Swiper
                     slidesPerView={3}
                     spaceBetween={30}
@@ -55,6 +56,7 @@ const RelatedProducts = ({ data, category }) => {
             </div>
 
             <div className='lg:hidden md:hidden block'>
+            <h3 className='py-8 text-2xl font-medium'>Realted  Product</h3>
                 <Swiper
                     slidesPerView={1}
                     spaceBetween={30}

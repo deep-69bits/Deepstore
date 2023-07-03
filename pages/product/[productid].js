@@ -30,7 +30,7 @@ const productid = ({ product }) => {
                                 <div key={ind} className="py-10" >
                                     <div className='lg:flex block gap-x-20'>
                                         <div>
-                                            <img className='w-80 ' src={urlFor(item.picture[0]).url()} alt="" />
+                                            <img className='w-80 m-auto' src={urlFor(item.picture[0]).url()} alt="" />
                                         </div>
 
                                         <div>

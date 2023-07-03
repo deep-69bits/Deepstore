@@ -1,4 +1,5 @@
 import React from 'react'
+import Cart from './Cart'
 import Footer from './Footer'
 import Header from './Header'
 import Seo from './Seo'

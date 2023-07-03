@@ -23,11 +23,13 @@ const categoryid = ({products}) => {
       <div className='m-auto w-full lg:w-4/6 py-10 grid grid-flow-row grid-cols-1 lg:grid-cols-3 md:grid-cols-2 px-5 gap-x-4 gap-y-4'>
        {
         products.map((item,index)=>{
-          return(
-            <div>
+          if(item.cat._ref==categoryid){
+            return(
+              <div>
               <Productcard id={item._id} name={item.name} image={urlFor(item.picture[0]).url()} price={item.price}/>
-            </div>
-          )
+              </div>
+              )
+            }
         })
        }
       </div>
