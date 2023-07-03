@@ -44,7 +44,7 @@ const RelatedProducts = ({ data, category }) => {
                         data.map((item, index) => {
                             if (item.cat._ref == category) {
                                 return (
-                                    <SwiperSlide>
+                                    <SwiperSlide key={index}>
                                         <Productcard id={item._id} name={item.name} image={urlFor(item.picture[0]).url()} price={item.price} />
                                     </SwiperSlide>
                                 )
@@ -76,7 +76,7 @@ const RelatedProducts = ({ data, category }) => {
                         data.map((item, index) => {
                             if (item.cat._ref == category) {
                                 return (
-                                    <SwiperSlide>
+                                    <SwiperSlide key={index}>
                                         <Productcard id={item._id} name={item.name} image={urlFor(item.picture[0]).url()} price={item.price} />
                                     </SwiperSlide>
                                 )

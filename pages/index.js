@@ -1,4 +1,3 @@
-import { Inter } from 'next/font/google'
 import Layout from '@/components/Layout'
 import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
@@ -9,7 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay, Parallax } from "swiper";
 
-export default function Home({ categories, customer_reviwes }) {
+export default function Home({ product,categories, customer_reviwes }) {
 
   const client = createClient({
     projectId: "a253bg6b",
@@ -22,8 +21,8 @@ export default function Home({ categories, customer_reviwes }) {
   }
   return (
     <main>
-      <Layout>
-        <div className='m-auto lg:w-4/6 w-full py-10'>
+      <Layout products={product} >
+        <div className='m-auto -z-0 lg:w-4/6 w-full py-10'>
           <Swiper
             slidesPerView={1}
             spaceBetween={30}
@@ -57,7 +56,7 @@ export default function Home({ categories, customer_reviwes }) {
           {
             categories.map((item, indes) => {
               return (
-                <Link href={'/category/' + item._id}>
+                <Link href={'/category/' + item._id} key={indes}>
                   <div className='flex px-4 py-2 rounded-xl hover:text-[#3fb5eb] hover:shadow-[#3fb5eb] shadow-lg border-[1px] border-black border-opacity-40 items-center cursor-pointer'>
                     <img className='h-20 w-20' src={urlFor(item.picture).url()} alt="" />
                     <h1 className='px-4 font-medium'>{item.name}</h1>
@@ -79,15 +78,17 @@ export async function getServerSideProps(context) {
     dataset: "production",
     useCdn: false,
   });
+  const query3 = `*[_type == "product"]`;
   const query = `*[_type == "category"]`;
   const query2 = `*[_type == "customer_reviwes"]`;
+  const product = await client.fetch(query3);
   const categories = await client.fetch(query);
   const customer_reviwes = await client.fetch(query2);
-  console.log(categories)
   return {
     props: {
+      product,
       categories,
-      customer_reviwes
+      customer_reviwes,
     },
   };
 }

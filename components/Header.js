@@ -3,9 +3,10 @@ import Button from './atoms/Button'
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import app from '../components/firebase'
+import app from './firebase'
 import Cart from './Cart';
-const Header = () => {
+import SearchProduct from './SearchProduct';
+const Header = ({products}) => {
   const router = useRouter()
   const [toggle, setToggle] = useState(true)
 
@@ -44,11 +45,10 @@ const Header = () => {
         </div>
 
         <div className='flex justify-between items-center '>
-          <ul className='flex list-none font-medium justify-between gap-x-10'>
-            <li className='hover:text-[#3fb5eb] cursor-pointer'>
-              <Link href={'/'}>
-                Home
-              </Link>
+          <ul className='flex list-none font-medium items-center
+           justify-between gap-x-10'>
+            <li className='ml-32'>
+             <SearchProduct data={products}/>
             </li>
           </ul>
         </div>
@@ -95,14 +95,14 @@ const Header = () => {
           {
             toggle ?
               <button onClick={menu}>
-                <svg fill="#3fb5eb" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-[#3fb5eb]">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                <svg fill="#3fb5eb" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8 text-[#3fb5eb]">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
               </button>
               :
               <button onClick={menu}>
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-[#3fb5eb]">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8 text-[#3fb5eb]">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
           }

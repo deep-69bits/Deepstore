@@ -21,6 +21,7 @@
     "react-dom": "18.2.0",
     "react-portable-text": "^0.6.0",
     "react-rating-stars-component": "^2.2.0",
+    "react-search-autocomplete": "^8.5.2",
     "react-stars": "^2.2.5",
     "swiper": "^9.4.1",
     "tailwindcss": "3.3.2"

@@ -3,17 +3,21 @@ import Cart from './Cart'
 import Footer from './Footer'
 import Header from './Header'
 import Seo from './Seo'
-const Layout = ({children}) => {
+import { createClient } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
+const Layout = ({children,products}) => {
+    
   return (
     <div>
     <Seo/>
     <div className='min-h-screen bg-white flex flex-col justify-between'>
-    <Header/>
+    <Header products={products}/>
     {children}
     <Footer/>
     </div>
     </div>
   )
 }
+
 
 export default Layout

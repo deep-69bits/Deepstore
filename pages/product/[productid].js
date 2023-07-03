@@ -1,11 +1,11 @@
 import Layout from '@/components/Layout'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import ReactStars from 'react-stars'
-import PortableText from "react-portable-text"
 import RelatedProducts from '@/components/RelatedProducts';
+import Button from '@/components/atoms/Button';
 
 const productid = ({ product }) => {
     const router = useRouter()
@@ -19,9 +19,40 @@ const productid = ({ product }) => {
     function urlFor(source) {
         return builder.image(source);
     }
-    console.log(product)
+
+    const [alreadyin,setalreadyin]=useState(false)
+    const addorder=()=>{
+        var order=JSON.parse(localStorage.getItem('orders'));
+        if(order==null){order=[]}
+        console.log(order)
+        if(!order.includes(productid)){
+            order.push(productid)
+            localStorage.setItem("orders", JSON.stringify(order));
+        }
+        else{setalreadyin(true)}
+    }
+    useEffect(()=>{
+        var order=JSON.parse(localStorage.getItem('orders'));
+        if(order==null){order=[]}
+        if(order.includes(productid)){
+            setalreadyin(true)
+        }
+    },[])
+
+    const remove=()=>{
+        var order=JSON.parse(localStorage.getItem('orders'));
+        if(order==null){order=[]}
+        var neworder=[];
+        order.map((item)=>{
+            if(item!=productid){
+                neworder.push(item)
+            }
+        })
+        localStorage.setItem("orders", JSON.stringify(neworder));
+        setalreadyin(false)
+    }
     return (
-        <Layout>
+        <Layout products={product}>
             <div className='px-10 lg:w-2/3 w-full m-auto'>
                 {
                     product.map((item, ind) => {
@@ -44,6 +75,16 @@ const productid = ({ product }) => {
                                             </span>
                                             <h2 className='my-2 text-xl'>MRP &#8377;{item.price}</h2>
                                             <h4 className='text-sm'>Inclusive of all taxes</h4>
+                                            {
+                                                alreadyin?
+                                                <div onClick={remove} >
+                                                <Button text={"Remove from cart"} className="my-2"/>
+                                                </div>
+                                                :
+                                                <div onClick={addorder}>
+                                                <Button text={"Add to cart"} className="my-2"/>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
 
