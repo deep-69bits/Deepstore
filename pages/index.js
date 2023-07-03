@@ -54,7 +54,7 @@ export default function Home({ product,categories, customer_reviwes }) {
 
         <div className='m-auto w-full lg:w-4/6 py-10 grid grid-flow-row grid-cols-1 lg:grid-cols-3 md:grid-cols-2 px-5 gap-x-4 gap-y-4'>
           {
-            categories.map((item, indes) => {
+            categories?.map((item, indes) => {
               return (
                 <Link href={'/category/' + item._id} key={indes}>
                   <div className='flex px-4 py-2 rounded-xl hover:text-[#3fb5eb] hover:shadow-[#3fb5eb] shadow-lg border-[1px] border-black border-opacity-40 items-center cursor-pointer'>

@@ -65,7 +65,7 @@ const login = () => {
       });
   }
   return (
-    <Layout>
+    <Layout products={[]}>
    
 
       <div className='py-10'>

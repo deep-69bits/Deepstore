@@ -41,7 +41,7 @@ const RelatedProducts = ({ data, category }) => {
                     modules={[Pagination, Autoplay, Parallax]}
                 >
                     {
-                        data.map((item, index) => {
+                        data?.map((item, index) => {
                             if (item.cat._ref == category) {
                                 return (
                                     <SwiperSlide key={index}>
@@ -73,7 +73,7 @@ const RelatedProducts = ({ data, category }) => {
                     modules={[Pagination, Autoplay, Parallax]}
                 >
                     {
-                        data.map((item, index) => {
+                        data?.map((item, index) => {
                             if (item.cat._ref == category) {
                                 return (
                                     <SwiperSlide key={index}>

@@ -19,10 +19,10 @@ const categoryid = ({products}) => {
     }
    
   return (
-    <Layout product={products}>
+    <Layout products={products}>
       <div className='m-auto w-full lg:w-4/6 py-10 grid grid-flow-row grid-cols-1 lg:grid-cols-3 md:grid-cols-2 px-5 gap-x-4 gap-y-4'>
        {
-        products.map((item,index)=>{
+        products?.map((item,index)=>{
           if(item.cat._ref==categoryid){
             return(
               <div key={index}>

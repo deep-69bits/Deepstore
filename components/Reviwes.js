@@ -27,7 +27,7 @@ const Reviwes = ({ data }) => {
                     modules={[Pagination, Autoplay, Parallax]}
                 >
                     {
-                        data.map((item, index) => {
+                        data?.map((item, index) => {
                             return (
                                 <SwiperSlide key={index}>
                                     <div key={index} className='py-2 px-8 hover:scale-105 transition-all duration-500 cursor-pointer'>
@@ -59,7 +59,7 @@ const Reviwes = ({ data }) => {
                     modules={[Pagination, Autoplay, Parallax]}
                 >
                     {
-                        data.map((item, index) => {
+                        data?.map((item, index) => {
                             return (
                                 <SwiperSlide key={index}>
                                     <div className='py-2 px-8 hover:scale-105 transition-all duration-500 cursor-pointer'>

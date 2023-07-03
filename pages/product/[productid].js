@@ -19,71 +19,94 @@ const productid = ({ product }) => {
     function urlFor(source) {
         return builder.image(source);
     }
-
-    const [alreadyin,setalreadyin]=useState(false)
-    const addorder=()=>{
-        var order=JSON.parse(localStorage.getItem('orders'));
-        if(order==null){order=[]}
+    const [load, setLoad] = useState(true)
+    const [alreadyin, setalreadyin] = useState(false)
+    const addorder = (price) => {
+        var order = JSON.parse(localStorage.getItem('orders'));
+        var sum = JSON.parse(localStorage.getItem('sum'));
+        if (sum == null) sum = 0;
+        sum = sum + parseFloat(price)
+        localStorage.setItem("sum", JSON.stringify(sum));
+        if (order == null) { order = [] }
         console.log(order)
-        if(!order.includes(productid)){
+        if (!order.includes(productid)) {
             order.push(productid)
             localStorage.setItem("orders", JSON.stringify(order));
-        }
-        else{setalreadyin(true)}
-    }
-    useEffect(()=>{
-        var order=JSON.parse(localStorage.getItem('orders'));
-        if(order==null){order=[]}
-        if(order.includes(productid)){
             setalreadyin(true)
         }
-    },[])
+        else {
+            setalreadyin(true)
+            setLoad(!load)
+        }
+    }
+    useEffect(() => {
 
-    const remove=()=>{
-        var order=JSON.parse(localStorage.getItem('orders'));
-        if(order==null){order=[]}
-        var neworder=[];
-        order.map((item)=>{
-            if(item!=productid){
+        const func = () => {
+            var order = JSON.parse(localStorage.getItem('orders'));
+            if (order == null) { order = [] }
+            if (order.includes(productid)) {
+                setalreadyin(true)
+                setLoad(!load)
+            }
+            else{
+                setalreadyin(false)
+                setLoad(!load)
+            }
+        }
+
+        setInterval(func, 3000);
+
+    }, [])
+
+    const remove = (price) => {
+        setalreadyin(false)
+        var order = JSON.parse(localStorage.getItem('orders'));
+        var sum=JSON.parse(localStorage.getItem('sum'));
+        if(sum==null)sum=0;
+        sum=sum-parseFloat(price)
+        localStorage.setItem("sum", JSON.stringify(sum));
+        if (order == null) { order = [] }
+        var neworder = [];
+        order?.map((item) => {
+            if (item != productid) {
                 neworder.push(item)
             }
         })
         localStorage.setItem("orders", JSON.stringify(neworder));
-        setalreadyin(false)
     }
     return (
         <Layout products={product}>
             <div className='px-10 lg:w-2/3 w-full m-auto'>
                 {
-                    product.map((item, ind) => {
+                    product?.map((item, ind) => {
                         if (item._id == productid) {
                             return (
                                 <div key={ind} className="py-10" >
-                                    <div className='lg:flex block gap-x-20'>
+                                    <div className=' block gap-x-20'>
                                         <div>
-                                            <img className='w-80 m-auto' src={urlFor(item.picture[0]).url()} alt="" />
+                                            <img className='w-80 my-4 m-auto' src={urlFor(item.picture[0]).url()} alt="" />
                                         </div>
 
                                         <div>
                                             <h1 className='text-3xl'>{item.name}</h1>
                                             <h2 className='my-2 font-light'>By {item.brand}</h2>
                                             <span className='flex items-center '>
-                                            <ReactStars count={5} value={item.rating} size={24} color2={'#ffd700'} />
-                                            <span className='mx-3'>
-                                            {item.rating}+ rating
-                                            </span>
+                                                <ReactStars count={5} value={item.rating} size={24} color2={'#ffd700'} />
+                                                <span className='mx-3'>
+                                                    {item.rating}+ rating
+                                                </span>
                                             </span>
                                             <h2 className='my-2 text-xl'>MRP &#8377;{item.price}</h2>
                                             <h4 className='text-sm'>Inclusive of all taxes</h4>
                                             {
-                                                alreadyin?
-                                                <div onClick={remove} >
-                                                <Button text={"Remove from cart"} className="my-2"/>
-                                                </div>
-                                                :
-                                                <div onClick={addorder}>
-                                                <Button text={"Add to cart"} className="my-2"/>
-                                                </div>
+                                                alreadyin ?
+                                                    <div  onClick={()=>{remove(item.price)}}>
+                                                        <Button text={"Remove from Cart"} className="my-2" />
+                                                    </div>
+                                                    :
+                                                    <div onClick={() => { addorder(item.price) }}>
+                                                        <Button text={"Add to cart"} className="my-2" />
+                                                    </div>
                                             }
                                         </div>
                                     </div>
@@ -91,30 +114,30 @@ const productid = ({ product }) => {
                                     <div className='py-10'>
                                         <h3 className='py-4 text-2xl font-medium'>Description</h3>
                                         <h5 className='font-light '>
-                                        {item.description}
+                                            {item.description}
                                         </h5>
                                     </div>
                                     <div>
                                         <h3 className='py-4 text-2xl font-medium'>Ingredients</h3>
                                         <h5 className='font-light '>
-                                        {item.ingredients}
+                                            {item.ingredients}
                                         </h5>
                                     </div>
                                     <div>
                                         <h3 className='py-4 text-2xl font-medium'>Benefits</h3>
                                         <h5 className='font-light '>
-                                        {item.benefits}
+                                            {item.benefits}
                                         </h5>
                                     </div>
                                     <hr className='my-3' />
-                                    <RelatedProducts data={product} category={item.cat._ref}/>
+                                    <RelatedProducts data={product} category={item.cat._ref} />
                                 </div>
                             )
                         }
                     })
                 }
-                </div>
-    
+            </div>
+
         </Layout>
     )
 }

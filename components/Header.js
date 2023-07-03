@@ -34,7 +34,7 @@ const Header = ({products}) => {
   return (
     <div>
 
-      <Cart opencart={opencart} setOpenCart={setOpenCart}/>
+      <Cart opencart={opencart} products={products} setOpenCart={setOpenCart}/>
 
       <nav className='px-36 hidden  justify-between items-center w-full py-4 bg-white lg:flex  gap-x-20 shadow-md'>
 

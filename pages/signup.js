@@ -35,7 +35,7 @@ const signup = () => {
     });
   }
   return (
-   <Layout>
+   <Layout products={[]}>
       
 
       <div className='py-10'>
