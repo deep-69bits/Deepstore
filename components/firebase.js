@@ -1,8 +1,7 @@
 
 import { initializeApp } from "firebase/app";
-
 const firebaseConfig = {
-  apiKey: "AIzaSyCclODNauQCjZp4d_OZ0rgN8HXzIb0kH3U",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_KEY,
   authDomain: "uowa-ad445.firebaseapp.com",
   projectId: "uowa-ad445",
   storageBucket: "uowa-ad445.appspot.com",

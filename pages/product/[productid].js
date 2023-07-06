@@ -6,6 +6,8 @@ import imageUrlBuilder from "@sanity/image-url";
 import ReactStars from 'react-stars'
 import RelatedProducts from '@/components/RelatedProducts';
 import Button from '@/components/atoms/Button';
+import { AnimatePresence, motion } from 'framer-motion'
+import Seo from '@/components/Seo';
 
 const productid = ({ product }) => {
     const router = useRouter()
@@ -39,6 +41,8 @@ const productid = ({ product }) => {
             setLoad(!load)
         }
     }
+    const [loading, setLoading] = useState(false)
+    const delay = 1.1;
     useEffect(() => {
 
         const func = () => {
@@ -55,6 +59,11 @@ const productid = ({ product }) => {
         }
 
         setInterval(func, 3000);
+
+        setLoading(false);
+        setTimeout(() => {
+          setLoading(true)
+        }, delay * 1000);
 
     }, [])
 
@@ -74,9 +83,10 @@ const productid = ({ product }) => {
         })
         localStorage.setItem("orders", JSON.stringify(neworder));
     }
-    return (
+    return loading ?(
+        <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 100, duration: 0.6, delay: 0.1, scale: 2 }}>
         <Layout products={product}>
-            <div className='px-10 lg:w-2/3 w-full m-auto'>
+            <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 100, duration: 0.6, delay: 0.1, scale: 2 }} className='px-10 lg:w-2/3 w-full m-auto'>
                 {
                     product?.map((item, ind) => {
                         if (item._id == productid) {
@@ -136,10 +146,14 @@ const productid = ({ product }) => {
                         }
                     })
                 }
-            </div>
-
+            </motion.div>
         </Layout>
-    )
+        </motion.div>
+    ):
+    <motion.div  initial={{ y: -600 }} animate={{ y: 0 }} transition={{ delay: 0 }} className='min-h-screen  flex items-center'>
+    <Seo/>
+    <img className='m-auto' src="https://ik.imagekit.io/cmef8hxb6/303_1__ufAkdsCKK.gif?updatedAt=1688585978869" alt="" />
+    </motion.div>
 }
 export async function getServerSideProps(context) {
     const client = createClient({

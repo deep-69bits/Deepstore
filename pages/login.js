@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import Layout from '@/components/Layout';
-
+import { AnimatePresence, motion } from 'framer-motion'
 const login = () => {
 
   const router = useRouter()
@@ -14,7 +14,8 @@ const login = () => {
   const auth = getAuth(app);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("");
-
+  const [loading, setLoading] = useState(false)
+  const delay = 2.1;
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -22,6 +23,10 @@ const login = () => {
         router.push('/')
       }
     });
+    setLoading(false);
+    setTimeout(() => {
+      setLoading(true)
+    }, delay * 1000);
   }, [])
 
   const signinuser = async () => {
@@ -64,10 +69,14 @@ const login = () => {
         const credential = GithubAuthProvider.credentialFromError(error);
       });
   }
-  return (
-    <Layout products={[]}>
-   
 
+  return  (
+    <div>
+    <Layout products={[]}>
+    {  
+      
+      <motion.div
+      initial={{ y: -600 }} animate={{ y: 0 }} transition={{ delay: 0 }}>
       <div className='py-10'>
 
         <div className='bg-white w-full lg:w-[50%] shadow-2xl  h-fit flex flex-col-3 justify-between pt-10 px-10 m-auto '>
@@ -76,12 +85,7 @@ const login = () => {
           </h1>
         </div>
         <div className='bg-white w-full lg:w-[50%] shadow-2xl  h-fit lg:flex flex-col-3 justify-between pt-5  pb-10 px-10 m-auto '>
-
-
           <div className='my-10'>
-
-
-
             <div>
               <label htmlFor="email" className='text-[#383838]'>Email</label>
               <input onChange={(e) => { setEmail(e.target.value) }} type="text" placeholder='example.com'
@@ -132,23 +136,21 @@ const login = () => {
                 <span className='mx-4 text-[15px]'>Continue with Github</span>
               </button>
             </div>
-
-
           </div>
-
         </div>
-
         <div className='bg-[#f8f8f8] w-full lg:w-[50%] shadow-md h-fit flex flex-col-3 justify-between py-10 px-10 m-auto '>
           Don't have an Account??
           <Link href={'/signup'}>
             <Button className={""} text="Sign Up" />
           </Link>
         </div>
-
-
       </div>
+      </motion.div>
+    
+    }
 
     </Layout>
+    </div>
   )
 }
 

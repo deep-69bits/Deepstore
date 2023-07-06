@@ -7,19 +7,27 @@ import Progress from '@/components/Progress';
 import Button from '@/components/atoms/Button';
 import Link from 'next/link';
 import ShippingAdress from '@/components/ShippingAdress';
-
-
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import app from '../components/firebase'
+import { useRouter } from 'next/navigation';
 
 
 const checkout = ({ product }) => {
 
     const [orders, setOrder] = useState([])
     const [totalsum, setSum] = useState(0)
-
+    const router =useRouter();
 
     useEffect(() => {
-
+        const auth = getAuth(app);
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+              const uid = user.uid;
+            } else {
+               router.push('/login')
+            }
+          });
+         
         var order = JSON.parse(localStorage.getItem('orders'));
         var sum = JSON.parse(localStorage.getItem('sum'));
         if (sum === null || sum == undefined || sum == NaN) {
@@ -30,8 +38,6 @@ const checkout = ({ product }) => {
         setSum(sum)
         if (order == null) { order = [] }
         setOrder(order)
-
-
     }, [])
 
     const client = createClient({

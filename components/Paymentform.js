@@ -1,20 +1,33 @@
 import React, { useState } from 'react'
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import Button from './atoms/Button';
 const initialOptions = {
-  clientId: "AWPvx1KZscWQ4P7Nbfq0q1T6RYcu9Ebyupu5QG74Xx4MqY6jK2PQI3IYCo_woN3DO4nYFLrlTv-a3__E",
+  clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
   currency: "USD",
   intent: "capture",
 };
-const erroroccured=(error)=>{
+const erroroccured = (error) => {
   console.log(error)
 }
 
-const Paymentform = ({progrsspercent, setProgressPercent}) => {
+const Paymentform = ({ progrsspercent, setProgressPercent }) => {
   return (
     <div>
-    <PayPalScriptProvider options={initialOptions} >
-    <PayPalButtons onError={erroroccured} />
+
+     <div className='m-auto items-center  w-1/3'>
+     <PayPalScriptProvider options={initialOptions} >
+     <PayPalButtons onError={erroroccured} />
      </PayPalScriptProvider>
+     </div>
+
+
+      <div className='flex my-2 justify-between'>
+        <div onClick={() => setProgressPercent(50)}>
+          <Button text={"Go back"} />
+        </div>
+        <div> </div>
+      </div>
+      
     </div>
   )
 }

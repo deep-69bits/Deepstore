@@ -50,7 +50,7 @@ const SearchProduct = ({data}) => {
       showIcon={true}
       maxResults={5}
       placeholder={"Search Products"}
-      className='z-50'
+      className='z-40'
       formatResult={formatResult}
     />
   </div>

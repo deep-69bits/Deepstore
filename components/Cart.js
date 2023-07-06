@@ -54,8 +54,10 @@ const cart = ({ opencart, setOpenCart, products }) => {
     }
 
     return (
-        <div className={opencart ? 'block transition-all duration-300 ' : 'hidden transition-all duration-300'}>
-            <div className='z-50 px-7  py-5 shadow-2xl transition-all duration-300  h-screen bg-white w-[500px]  right-0 fixed flex flex-col justify-between'>
+        <div className={opencart ? ' transition-all duration-300 flex w-screen ' : 'hidden transition-all duration-300'}>
+           <div className='w-2/3  h-screen opacity-60 fixed  bg-white z-50'></div>
+           
+            <div className='z-50 px-7  py-5 shadow-2xl transition-all duration-300  h-screen bg-white w-1/3  right-0 fixed flex flex-col justify-between'>
 
                 <div>
                     <div className='flex justify-between'>

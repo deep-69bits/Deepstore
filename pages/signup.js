@@ -8,6 +8,7 @@ import app from '../components/firebase'
 import { useRouter } from 'next/navigation'
 import { getAuth,createUserWithEmailAndPassword,onAuthStateChanged  } from "firebase/auth";
 import Layout from '@/components/Layout';
+import { AnimatePresence, motion } from 'framer-motion'
 
 const signup = () => {
   const auth = getAuth(app);
@@ -16,12 +17,19 @@ const signup = () => {
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("");
 
+  const [loading, setLoading] = useState(false)
+  const delay = 2.1;
+
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
         router.push('/')
       }});
+      setLoading(false);
+      setTimeout(() => {
+        setLoading(true)
+      }, delay * 1000);
   },[])
 
   const createuser=async()=>{
@@ -36,9 +44,7 @@ const signup = () => {
   }
   return (
    <Layout products={[]}>
-      
-
-      <div className='py-10'>
+      <motion.div className='py-10' initial={{ y: -600 }} animate={{ y: 0 }} transition={{ delay: 0 }}>
 
       <div className='bg-white w-full lg:w-[50%] shadow-2xl  h-fit flex flex-col-3 justify-between pt-10 px-10 m-auto'>
          <h1 className='text-2xl '>
@@ -120,7 +126,7 @@ const signup = () => {
         </div>
 
         
-      </div>
+      </motion.div>
 
       </Layout>
   )
