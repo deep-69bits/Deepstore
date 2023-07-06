@@ -36,7 +36,6 @@ export default function Home({ product, categories, customer_reviwes }) {
   return loading? (
     <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 100, duration: 0.6, delay: 0.1, scale: 2 }} >
       <Layout products={product} >
-
         {
           <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 100, duration: 0.6, delay: 0.1, scale: 2 }}>
             <div className='m-auto -z-0 lg:w-4/6 w-full py-10'>
