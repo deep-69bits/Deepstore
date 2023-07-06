@@ -1,80 +1,38 @@
 import React, { useState, useEffect } from 'react'
 import Button from '@/components/atoms/Button';
 import Link from 'next/link';
-import app from '../components/firebase'
 import { useRouter } from 'next/navigation'
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import Layout from '@/components/Layout';
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
+import {signin,google,github,userAuth} from '../firebase/auth'
+
+
 const login = () => {
 
   const router = useRouter()
-
-  const auth = getAuth(app);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false)
   const delay = 2.1;
+
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        router.push('/')
-      }
-    });
+    userAuth(router)
     setLoading(false);
     setTimeout(() => {
       setLoading(true)
     }, delay * 1000);
   }, [])
 
-  const signinuser = async () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  }
-  const provider = new GoogleAuthProvider();
-  const signinwithgoogle = async () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-      }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
+  const signinuser = async () => {signin(email,password)}
+  const signinwithgoogle = async () => {google()}
+  const signinwithgithub = async () => {github()}
 
-      });
-  }
-  const providergithub = new GithubAuthProvider();
-  const signinwithgithub = async () => {
-    signInWithPopup(auth, providergithub)
-      .then((result) => {
-        const credential = GithubAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-
-      }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GithubAuthProvider.credentialFromError(error);
-      });
-  }
 
   return  (
     <div>
     <Layout products={[]}>
-    {  
-      
+    
+
       <motion.div
       initial={{ y: -600 }} animate={{ y: 0 }} transition={{ delay: 0 }}>
       <div className='py-10'>
@@ -146,9 +104,6 @@ const login = () => {
         </div>
       </div>
       </motion.div>
-    
-    }
-
     </Layout>
     </div>
   )

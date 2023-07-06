@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout'
-import Reviwes from '@/components/Reviwes';
+import Reviwes from '@/components/atoms/Reviwes';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion'
@@ -7,7 +7,7 @@ import client from '@/sanity/client';
 import { urlFor } from '@/sanity/client';
 import Ads from '@/components/atoms/Ads';
 import Preloader from '@/components/atoms/Preloader';
-
+import Image from 'next/image';
 
 export default function Home({ product, categories, customer_reviwes }) {
   const [loading, setLoading] = useState(false)
@@ -37,7 +37,7 @@ export default function Home({ product, categories, customer_reviwes }) {
                   return (
                     <Link href={'/category/' + item._id} key={indes}>
                       <div className='flex px-4 py-2 rounded-xl hover:text-[#3fb5eb] hover:shadow-[#3fb5eb] shadow-lg border-[1px] border-black border-opacity-40 items-center cursor-pointer'>
-                        <img className='h-20 w-20' src={urlFor(item.picture).url()} alt="" />
+                        <Image height={70} width={70} src={urlFor(item.picture).url()} alt="Categroy Image" />
                         <h1 className='px-4 font-medium'>{item.name}</h1>
                       </div>
                     </Link>

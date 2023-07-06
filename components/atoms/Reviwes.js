@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay, Parallax } from "swiper";
-import PortableText from "react-portable-text"
+
 
 const Reviwes = ({ data }) => {
     

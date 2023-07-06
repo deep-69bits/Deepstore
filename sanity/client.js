@@ -8,6 +8,7 @@ const client = createClient({
 export default client
 const builder = imageUrlBuilder(client);
 export function urlFor(source) {
+  console.log( builder.image(source))
   return builder.image(source);
 }
 
