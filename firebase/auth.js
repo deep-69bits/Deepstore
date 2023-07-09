@@ -6,6 +6,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const providergithub = new GithubAuthProvider();
 
+
 export const signin = async (email,password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -49,12 +50,7 @@ export const github=async()=>{
     });
 }
 
-export const userAuth=async(router)=>{
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-          const uid = user.uid;
-          router.push('/')
-          return uid
-        }
-    });
-}
+
+
+export const userAuth=auth
+export const checkUser=onAuthStateChanged

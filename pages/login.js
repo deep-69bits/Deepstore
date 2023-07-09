@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Layout from '@/components/Layout';
 import { motion } from 'framer-motion'
 import {signin,google,github,userAuth} from '../firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 const login = () => {
@@ -16,7 +17,15 @@ const login = () => {
   const delay = 2.1;
 
   useEffect(() => {
-    userAuth(router)
+  
+    onAuthStateChanged(userAuth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        router.push('/')
+      } else {
+      }
+    });
+   
     setLoading(false);
     setTimeout(() => {
       setLoading(true)

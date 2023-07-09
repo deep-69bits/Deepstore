@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Button from './atoms/Button'
 import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url"
-
+import { motion } from 'framer-motion';
+import { getnumberoforders } from '@/localstorage/functions';
+import Link from 'next/link';
 const cart = ({ opencart, setOpenCart, products }) => {
 
     const [orders, setOrder] = useState([])
     const [totalsum, setSum] = useState(0)
+    
     useEffect(() => {
       
         const func=()=>{
@@ -19,6 +22,7 @@ const cart = ({ opencart, setOpenCart, products }) => {
             sum=parseInt(sum)
             setSum(sum)
             setOrder(order)
+          
         }
 
         setInterval(func, 3000);
@@ -52,28 +56,33 @@ const cart = ({ opencart, setOpenCart, products }) => {
         localStorage.setItem("orders", JSON.stringify(neworder));
         setOrder(neworder)
     }
-
+   console.log(orders.length)
     return (
-        <div className={opencart ? ' transition-all duration-300 flex w-screen ' : 'hidden transition-all duration-300'}>
-           <div className='w-2/3  h-screen opacity-60 fixed  bg-white z-50'></div>
+        <div >
+        {
+         !opencart?<div></div>
+        :
+        <motion.div  className={' transition-all duration-300 flex w-screen '}>
+           <motion.div  initial={{ x:1000 }} exit={{ x: 1000 }} animate={{ x:0 }}  className='w-2/3  h-screen opacity-60 fixed  bg-white z-50'></motion.div>
            
-            <div className='z-50 px-7  py-5 shadow-2xl transition-all duration-300  h-screen bg-white w-1/3  right-0 fixed flex flex-col justify-between'>
+            <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 100, duration: 0, scale: 2 }} className='z-50 px-7  py-5 shadow-2xl transition-all duration-300  h-screen bg-white w-1/3  right-0 fixed flex flex-col justify-between'>
 
                 <div>
                     <div className='flex justify-between'>
                         <button onClick={(e) => { setOpenCart(!opencart) }} >
-                            <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8 text-[#3fb5eb]">
+                            <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8 text-[#0E2954]">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                         <div></div>
                     </div>
-                    <div className='my-5 overflow-y-auto overflow-x-hidden h-[520px] mx-2'>
+                    <motion.div initial={{ x: -100 }} exit={{ scale: 0 }} animate={{ x:0 }} transition={{ type: "spring", stiffness: 100, duration: 0.6, delay: 0.1, scale: 2 }} className='my-5 overflow-y-auto overflow-x-hidden h-[520px] mx-2'>
                         {
                             products.map((item, index) => {
                                 if (orders!=null && orders.length!=0 && orders.includes(item._id)) {
                                     return (
-                                        <div className='my-2 py-2 border-[1px] hover:scale-105 duration-500 transition-all cursor-pointer'>
+                                        <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale:1}} transition={{ type: "spring", stiffness: 100, duration: 0.6, delay: 0.2, scale: 2 }} className='my-2 py-2 border-[1px] hover:scale-105 duration-500 transition-all cursor-pointer'>
+                                        <div className='hover:scale-105 duration-500 transition-all'>
                                             <button onClick={()=>{remove(item._id,item.price)}}  className='float-right mx-2'>
                                                 <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6  h-6 text-[#3fb5eb]">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -94,11 +103,12 @@ const cart = ({ opencart, setOpenCart, products }) => {
                                                 </div>
                                             </div>
                                         </div>
+                                        </motion.div>
                                     )
                                 }
                             })
                         }
-                    </div>
+                    </motion.div>
 
 
                 </div>
@@ -112,11 +122,16 @@ const cart = ({ opencart, setOpenCart, products }) => {
                             <h2 className='text-xl '>Subtotal amount</h2>
                             <h4 className='text-xl'>&#8377;{totalsum}</h4>
                         </div>
-                        <Button text={'Checkout'} className="text-center" />
+                        <Link href='/checkout'>
+                        <Button text={'Checkout'} className="text-center w-full" />
+                        </Link>
                     </div>
                 </div>
 
-            </div>
+            </motion.div>
+        </motion.div>
+
+         }
         </div>
     )
 }

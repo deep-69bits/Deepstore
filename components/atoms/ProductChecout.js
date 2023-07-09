@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Button from './Button'
 import { urlFor } from '@/sanity/client';
 
-const ProductChecout = ({product,orders,totalsum}) => {
+const ProductChecout = ({product,orders,totalsum,progrsspercent,setProgressPercent}) => {
   return (
     <div className='py-10 w-5/6 m-auto items-center '>
     <h1 className='text-xl text-center my-4'>Order Summary</h1>

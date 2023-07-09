@@ -64,7 +64,7 @@ return (
                 <Progress percent={progrsspercent} />
                 {
                     progrsspercent == 0 ?
-                        <ProductChecout orders={orders} product={product} totalsum={totalsum} />
+                        <ProductChecout orders={orders} product={product} totalsum={totalsum} progrsspercent={progrsspercent} setProgressPercent={setProgressPercent} />
                         : progrsspercent == 50 ? <ShippingAdress progrsspercent={progrsspercent} setProgressPercent={setProgressPercent} />
                             : progrsspercent == 100 ? <Paymentform progrsspercent={progrsspercent} setProgressPercent={setProgressPercent} />
                                 : <div></div>

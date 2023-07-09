@@ -7,33 +7,36 @@ const Progress = ({percent}) => {
         <div>
             <ProgressBar
                 percent={percent}
-                filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
+                filledBackground="linear-gradient(to right, #6598eb , #0E2954)"
             >
                 <Step transition="scale">
                     {({ accomplished }) => (
-                        <img
-                            style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
-                            width="30"
-                            src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/9/9d/Pichu.png/revision/latest?cb=20170407222851"
-                        />
+                        <div>
+                        <div 
+                        className={ + accomplished?' bg-[#0E2954]  py-3 px-5 text-white text-xl font-semibold rounded-full text-center':' bg-[#6598eb]  py-3 px-5 text-white text-xl font-semibold rounded-full text-center'}>
+                        1
+                        </div>
+                        </div>
                     )}
                 </Step>
                 <Step transition="scale">
                     {({ accomplished }) => (
-                        <img
-                            style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
-                            width="30"
-                            src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/9/97/Pikachu_%28Smiling%29.png/revision/latest?cb=20170410234508"
-                        />
+                        <div>
+                        <div 
+                        className={ + accomplished?' bg-[#0E2954]  py-3 px-5 text-white text-xl font-semibold rounded-full text-center':' bg-[#6598eb]  py-3 px-5 text-white text-xl font-semibold rounded-full text-center'}>
+                        2
+                        </div>
+                        </div>
                     )}
                 </Step>
                 <Step transition="scale">
                     {({ accomplished }) => (
-                        <span className='w-9'>
-                            <img
-                                src="https://orig00.deviantart.net/493a/f/2017/095/5/4/raichu_icon_by_pokemonshuffle_icons-db4ryym.png"
-                            />
-                        </span>
+                        <div>
+                        <div 
+                        className={ + accomplished?' bg-[#0E2954]  py-3 px-5 text-white text-xl font-semibold rounded-full text-center':' bg-[#6598eb]  py-3 px-5 text-white text-xl font-semibold rounded-full text-center'}>
+                        3
+                        </div>
+                        </div>
                     )}
                 </Step>
             </ProgressBar>

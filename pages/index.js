@@ -14,6 +14,8 @@ export default function Home({ product, categories, customer_reviwes }) {
   const delay = 1.1;
   useEffect(
     () => {
+     
+    
       setLoading(false);
       setTimeout(() => {
         setLoading(true)
@@ -36,7 +38,7 @@ export default function Home({ product, categories, customer_reviwes }) {
                 categories?.map((item, indes) => {
                   return (
                     <Link href={'/category/' + item._id} key={indes}>
-                      <div className='flex px-4 py-2 rounded-xl hover:text-[#3fb5eb] hover:shadow-[#3fb5eb] shadow-lg border-[1px] border-black border-opacity-40 items-center cursor-pointer'>
+                      <div className='flex px-4 py-2 rounded-xl hover:text-[#0E2954] hover:shadow-[#0E2954] shadow-lg border-[1px] border-black border-opacity-40 items-center '>
                         <Image height={70} width={70} src={urlFor(item.picture).url()} alt="Categroy Image" />
                         <h1 className='px-4 font-medium'>{item.name}</h1>
                       </div>
