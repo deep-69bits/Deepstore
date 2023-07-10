@@ -6,7 +6,7 @@ export const addProduct=(productid,price)=>{
     sum = sum + parseFloat(price)
     localStorage.setItem("sum", JSON.stringify(sum));
     if (order == null) { order = [] }
-    console.log(order)
+  
     if (!order.includes(productid)) {
         order.push(productid)
         localStorage.setItem("orders", JSON.stringify(order));
@@ -15,7 +15,7 @@ export const addProduct=(productid,price)=>{
 export const checkProduct=(productid)=>{
     var order = JSON.parse(localStorage.getItem('orders'));
     if (order == null) { order = [] }
-    console.log(order)
+   
     if (order.includes(productid)) {return true;}
     return false
 }
@@ -34,12 +34,4 @@ export const removeProduct=(productid, price)=>{
             }
         })
      localStorage.setItem("orders", JSON.stringify(neworder));
-}
-export const getnumberoforders=()=>{
-    var order = JSON.parse(localStorage.getItem('orders'));
-    if(order==null)order=[]
-    if(!order==null){
-        return order.length
-    }
-    return 0;
 }

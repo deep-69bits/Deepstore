@@ -65,11 +65,33 @@ const productid = ({ product }) => {
                                 <div key={ind} className="py-10" >
                                     <div className=' block gap-x-20'>
                                         <div className='min-h-80'>
-                                       
-                                                        <img className='w-80 h-80 my-4 m-auto' src={urlFor(item.picture[0]).url()} alt="" />
-                                    
+                                        {
+                                            item.picture.map((it,index)=>{
+                                                if(selected==index){
+                                                    return(
+                                                        <img className='w-80 h-80 my-4 m-auto' src={urlFor(item.picture[index]).url()} alt="" />
+                                                    )
+                                                }   
+                                            })
+                                        }
                                         </div>
-                                      
+                                         <div className='lg:flex grid grid-flow-row grid-cols-3 items-center justify-center my-10 '>
+                                           {
+                                            item.picture.map((it,index)=>{
+                                                if(selected==index)
+                                                {return(
+                                                    <div onClick={()=>{setSelected(index)}}  className='mx-3 py-1 px-2 border-[1px] border-black rounded-md'>
+                                                    <img className='w-20  cursor-pointer  h-16 my-4 m-auto' src={urlFor(item.picture[index]).url()} alt="" />
+                                                    </div>
+                                                )}
+                                                return(
+                                                    <div onClick={()=>{setSelected(index)}} className='mx-3 py-1 px-2 border-[1px] border-white rounded-md'>
+                                                    <img className='w-20 h-16 cursor-pointer   my-4 m-auto' src={urlFor(item.picture[index]).url()} alt="" />
+                                                    </div>
+                                                )
+                                            })
+                                           }
+                                         </div>
                                         <div>
                                             <h1 className='text-3xl'>{item.name}</h1>
                                             <h2 className='my-2 font-light'>By {item.brand}</h2>

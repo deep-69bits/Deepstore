@@ -3,7 +3,8 @@ import Button from './atoms/Button'
 import { createClient } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url"
 import { motion } from 'framer-motion';
-import { getnumberoforders } from '@/localstorage/functions';
+import client from '@/sanity/client';
+import { urlFor } from '@/sanity/client';
 import Link from 'next/link';
 const cart = ({ opencart, setOpenCart, products }) => {
 
@@ -29,15 +30,7 @@ const cart = ({ opencart, setOpenCart, products }) => {
 
     },[])
 
-    const client = createClient({
-        projectId: "a253bg6b",
-        dataset: "production",
-        useCdn: false,
-    });
-    const builder = imageUrlBuilder(client);
-    function urlFor(source) {
-        return builder.image(source);
-    }
+  
 
     const remove=(productid,price)=>{
         var order=JSON.parse(localStorage.getItem('orders'));
@@ -56,7 +49,7 @@ const cart = ({ opencart, setOpenCart, products }) => {
         localStorage.setItem("orders", JSON.stringify(neworder));
         setOrder(neworder)
     }
-   console.log(orders.length)
+
     return (
         <div >
         {
@@ -82,6 +75,7 @@ const cart = ({ opencart, setOpenCart, products }) => {
                                 if (orders!=null && orders.length!=0 && orders.includes(item._id)) {
                                     return (
                                         <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale:1}} transition={{ type: "spring", stiffness: 100, duration: 0.6, delay: 0.2, scale: 2 }} className='my-2 py-2 border-[1px] hover:scale-105 duration-500 transition-all cursor-pointer'>
+                                        <Link href={'/product/'+item._id}>
                                         <div className='hover:scale-105 duration-500 transition-all'>
                                             <button onClick={()=>{remove(item._id,item.price)}}  className='float-right mx-2'>
                                                 <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6  h-6 text-[#3fb5eb]">
@@ -103,6 +97,7 @@ const cart = ({ opencart, setOpenCart, products }) => {
                                                 </div>
                                             </div>
                                         </div>
+                                        </Link>
                                         </motion.div>
                                     )
                                 }
