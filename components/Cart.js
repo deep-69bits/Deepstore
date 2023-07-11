@@ -56,9 +56,9 @@ const cart = ({ opencart, setOpenCart, products }) => {
          !opencart?<div></div>
         :
         <motion.div  className={' transition-all duration-300 flex w-screen '}>
-           <motion.div  initial={{ x:1000 }} exit={{ x: 1000 }} animate={{ x:0 }}  className='w-2/3  h-screen opacity-60 fixed  bg-white z-50'></motion.div>
+           <motion.div  initial={{ x:1000 }} exit={{ x: 1000 }} animate={{ x:0 }}  className='w-2/3 hidden  h-screen opacity-60 lg:fixed  bg-white z-50'></motion.div>
            
-            <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 100, duration: 0, scale: 2 }} className='z-50 px-7  py-5 shadow-2xl transition-all duration-300  h-screen bg-white w-1/3  right-0 fixed flex flex-col justify-between'>
+            <motion.div initial={{ scale: 0 }} exit={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 100, duration: 0, scale: 2 }} className='z-50 px-7  py-5 shadow-2xl transition-all duration-300  h-screen bg-white lg:w-1/3 w-full  right-0 fixed flex flex-col justify-between'>
 
                 <div>
                     <div className='flex justify-between'>
