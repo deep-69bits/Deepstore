@@ -4,7 +4,7 @@ import { ProgressBar, Step } from "react-step-progress-bar";
 
 const Progress = ({percent}) => {
     return (
-        <div>
+        <div className='px-10 lg:px-0'>
             <ProgressBar
                 percent={percent}
                 filledBackground="linear-gradient(to right, #6598eb , #0E2954)"

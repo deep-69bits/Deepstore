@@ -3,7 +3,10 @@ import { Country, State, City } from 'country-state-city';
 import Button from './atoms/Button';
 import Link from 'next/link';
 
-const ShippingAdress = ({progrsspercent, setProgressPercent}) => {
+const ShippingAdress = ({progrsspercent, setProgressPercent,setfirstName,
+    setLastName,setshipState,setadress,setZip,setcity,lastName,firstName,
+    phoneNumber,address,zip,setPhoneNumber
+}) => {
     const [stateIso, setStateIso] = useState('AN');
     const [cities, setcities] = useState(City.getCitiesOfState('IN', 'AN'))
     const setState = (e) => {
@@ -12,21 +15,24 @@ const ShippingAdress = ({progrsspercent, setProgressPercent}) => {
   
     return (
         <div> 
+        
         {   progrsspercent?
+
             <div className='m-auto -z-0  w-full px-10  min-h-[600px] py-10'>
+            <h1 className='text-xl text-center my-10'>Shippping Information</h1>
                 <htmlForm className="w-full m-auto ">
                     <div className="flex flex-wrap -mx-3  mb-6">
                         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
                                 First Name
                             </label>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane" />
+                            <input value={firstName} onChange={(e)=>{setfirstName(e.target.value)}} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane" />
                         </div>
                         <div className="w-full md:w-1/2 px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                                 Last Name
                             </label>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe" />
+                            <input value={lastName} onChange={(e)=>{setLastName(e.target.value)}}  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe" />
                         </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-6">
@@ -34,8 +40,17 @@ const ShippingAdress = ({progrsspercent, setProgressPercent}) => {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
                                 Phone Number
                             </label>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="902XXXXXXX" />
+                            <input value={phoneNumber} onChange={(e)=>{setPhoneNumber(e.target.value)}} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="902XXXXXXX" />
                             <p className="text-gray-600 text-xs italic">Should be of 10 digits</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+                                Address
+                            </label>
+                            <input value={address} onChange={(e)=>{setadress(e.target.value)}} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="address" placeholder="Appartment 7,street 15" />
+                           
                         </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-2">
@@ -45,7 +60,9 @@ const ShippingAdress = ({progrsspercent, setProgressPercent}) => {
                                 State
                             </label>
                             <div className="relative">
-                                <select onChange={(e) => { setState(e) }} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                                <select onChange={(e) => { setState(e) 
+                                    setshipState(e.target.name)
+                                }} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                     {
                                         State.getStatesOfCountry('IN').map((item) => {
                                             return (
@@ -66,7 +83,9 @@ const ShippingAdress = ({progrsspercent, setProgressPercent}) => {
                                 City
                             </label>
                             <div className="relative">
-                                <select onChange={(e) => { setStateIso(e.target.value) }} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                                <select onChange={(e) => { setStateIso(e.target.value)
+                                    setcity(e.target.name)
+                                 }} className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                     {
                                         cities.map((item) => {
                                             return (
@@ -86,7 +105,7 @@ const ShippingAdress = ({progrsspercent, setProgressPercent}) => {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-zip">
                                 Zip
                             </label>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210" />
+                            <input value={zip} onChange={(e)=>{setZip(e.target.value)}} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210" />
                         </div>
                     </div>
                 </htmlForm>

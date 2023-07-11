@@ -14,6 +14,15 @@ const checkout = ({ product }) => {
     const [orders, setOrder] = useState([])
     const [totalsum, setSum] = useState(0)
     const router = useRouter();
+    
+    const [firstName,setfirstName]=useState('');
+    const [lastName,setLastName]=useState('')
+    const [phoneNumber,setPhoneNumber]=useState('')
+    const [state,setState]=useState('Andaman and Nicobar Islands')
+    const [address,setadress]=useState('')
+    const [zip,setZip]=useState('')
+    const [city,setcity]=useState('Bamboo Flat')
+  
 
     useEffect(() => {
         const auth = getAuth(app);
@@ -64,11 +73,35 @@ return (
                 <Progress percent={progrsspercent} />
                 {
                     progrsspercent == 0 ?
-                        <ProductChecout orders={orders} product={product} totalsum={totalsum} progrsspercent={progrsspercent} setProgressPercent={setProgressPercent} />
-                        : progrsspercent == 50 ? <ShippingAdress progrsspercent={progrsspercent} setProgressPercent={setProgressPercent} />
-                            : progrsspercent == 100 ? <Paymentform progrsspercent={progrsspercent} setProgressPercent={setProgressPercent} />
-                                : <div></div>
-
+                        <ProductChecout orders={orders} setSum={setSum} setOrder={setOrder} product={product} totalsum={totalsum} progrsspercent={progrsspercent} setProgressPercent={setProgressPercent} />
+                        : progrsspercent == 50 ? 
+                        <ShippingAdress
+                        setfirstName={setfirstName}
+                        setLastName={setLastName}
+                        setPhoneNumber={setPhoneNumber}
+                        setadress={setadress}
+                        setZip={setZip}
+                        setshipState={setState}
+                        setcity={setcity}
+                        firstName={firstName}
+                        lastName={lastName}
+                        phoneNumber={phoneNumber}
+                        address={address}
+                        zip={zip}
+                         progrsspercent={progrsspercent} setProgressPercent={setProgressPercent} 
+                         />
+                        : progrsspercent == 100 ? 
+                        <Paymentform
+                        orders={orders} product={product} totalsum={totalsum}
+                        firstName={firstName}
+                        lastName={lastName}
+                        phoneNumber={phoneNumber}
+                        address={address}
+                        city={city}
+                        state={state}
+                        zip={zip}
+                        progrsspercent={progrsspercent} setProgressPercent={setProgressPercent} />
+                        : <div></div>
                 }
             </div>
         </Layout>
